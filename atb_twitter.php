@@ -82,8 +82,8 @@ h4. Tags for twitter forms:
 Only a few of these tags take any attributes:
 
 * *atb_tw_text* returns the tweet's text.  It takes one optional attribute, @linkify@. With @linkify@ set to 1 (the default), URLs, at-replies and hashtags are converted to links; with @linkify@ set to 0, the text will be left alone.
-* *atb_tw_created_at* returns the date of the tweet. By default, it uses the "Archive date format" as set in Textpattern's preferences; it may be set to a format string for "strftime()":http://us3.php.net/manual/en/function.strftime.php.
-* *atb_tw_user_created_at* returns the date the Twitter account being read was created. By default, it uses the "Archive date format" as set in Textpattern's preferences; it may be set to a format string for "strftime()":http://us3.php.net/manual/en/function.strftime.php.
+* *atb_tw_created_at* returns the date of the tweet. It takes two attributes: @format@, which may be any value accepted by "txp:posted":http://textpattern.net/wiki/index.php?title=posted and defaults to the "Archive date format" as set in Textpattern's preferences; and @tz@, which determines if the time used is the local time (as determined by Textpattern's timezone--this is the default setting), GMT (set @tz@ to "1"), or the time zone Twitter reports for the user (set @tz@ to "2").
+* *atb_tw_user_created_at* returns the date the Twitter account being read was created. It takes the same attributes as @atb_tw_created_at@.
 
 There are three conditional tags:
 
@@ -252,11 +252,19 @@ function atb_tw_if_is_reply($atts, $thing) {
 
 function atb_tw_created_at($atts) {
     global $atb_thistweet;
-    extract(lAtts(array('format' => ''),
+    extract(lAtts(array('format' => '',
+                        'tz' => '0'),
               $atts));
     
+    $time = strtotime($atb_thistweet->created_at);
+    
     if ( !$format ) { global $prefs; $format = $prefs['archive_dateformat']; }
-    return strftime($format, strtotime($atb_thistweet->created_at));
+    
+    if ( $tz === 2 ) {
+        $tz = 1;
+        $time += (int)$atb_thistweet->user->utc_offset;
+    }
+    return safe_strftime($format, $time, (int)$gmt);
 }
 
 function atb_tw_id($atts) {
@@ -345,11 +353,19 @@ function atb_tw_user_friends_count($atts) {
 
 function atb_tw_user_created_at($atts) {
     global $atb_thistweet;
-    extract(lAtts(array('format' => ''),
+    extract(lAtts(array('format' => '',
+                        'tz' => '0'),
               $atts));
     
+    $time = strtotime($atb_thistweet->user->created_at);
+    
     if ( !$format ) { global $prefs; $format = $prefs['archive_dateformat']; }
-    return strftime($format, strtotime($atb_thistweet->user->created_at));
+    
+    if ( $tz === 2 ) {
+        $tz = 1;
+        $time += (int)$atb_thistweet->user->utc_offset;
+    }
+    return safe_strftime($format, $time, (int)$gmt);
 }
 
 function atb_tw_user_favourites_count($atts) {
