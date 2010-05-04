@@ -76,6 +76,7 @@ h4. @txp:atb_twitter@
 * *form:* _(Optional)_ The form to use to display statuses; required if @atb_twitter@ is not used as a container tag.
 * *api_base:* _(Optional)_ The root URL of the microblogging site's API. Defaults to 'twitter.com'
 * *site_base:* _(Optional)_ The base URL of the site to use when generating links. By default, @atb_twitter@ will attempt to guess this from the @api_base@; you shouldn't need to set this normally.
+* *update_lastmod:* _(Optional)_ If set to "1" (the default), atb_twitter will update Textpattern's last update time with the time of the most recent Tweet (analogous to setting "New comment means site updated?" to yes in your site preferences).
 
 h4. Tags for twitter forms:
 
@@ -174,7 +175,8 @@ function atb_twitter($atts, $thing) {
                         'cache' => 15,
                         'form' => '',
                         'api_base' => 'twitter.com',
-                        'site_base' => ''
+                        'site_base' => '',
+                        'update_lastmod' => 1
                        ),
                   $atts));
     
@@ -202,6 +204,18 @@ function atb_twitter($atts, $thing) {
         //(so at least we'll have *some* content).
         $outp = atb_get_tweet_cache($hash, 0);
         return $outp ? $outp : '';
+    }
+    
+    //Update Textpattern's last-modified date.
+    if ( $update_lastmod ) {
+        $currentmod = strtotime(get_pref('lastmod', false));
+        $twitmod = $tweets->xpath('//status/created_at');
+        $twitmod = (string)$twitmod[0];
+        $twitmod = strtotime($twitmod);
+        
+        if ( $currentmod && $currentmod < $twitmod ) {
+            set_pref('lastmod', strftime('%F %H:%M:%S', $twitmod));
+        }
     }
     
     $tweets = $tweets->xpath('//status');
