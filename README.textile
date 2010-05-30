@@ -1,0 +1,102 @@
+h1. @atb_twitter@ Help
+
+h2. Display Twitter feeds on your website
+
+h3. Contents
+
+* "Overview":#atb_tw_overview
+* "Tags":#atb_tw_tags
+* "Example":#atb_tw_example
+* "To-Do":#atb_tw_todo
+
+h3(#atb_tw_overview). Overview
+
+@atb_twitter@ pulls user update feeds from Twitter or from StatusNet-based microblogging sites like identi.ca and displays them using a Textpattern form.
+
+h3(#atb_tw_tags). Tags
+
+h4. @txp:atb_twitter@
+
+@txp:atb_twitter@ is the primary tag for this plugin, and acts as either a container or single tag. It takes the following attributes:
+
+* *user:* _(Required)_ The screen name of the Twitter account to read from.
+* *count:* _(Optional; defaults to '5')_ The number of recent statuses to pull.
+* *cache:* _(Optional; defaults to '15')_ The maximum time, in minutes, to continue using cached results.
+* *form:* _(Optional)_ The form to use to display statuses; required if @atb_twitter@ is not used as a container tag.
+* *api_base:* _(Optional)_ The root URL of the microblogging site's API. Defaults to 'twitter.com'
+* *site_base:* _(Optional)_ The base URL of the site to use when generating links. By default, @atb_twitter@ will attempt to guess this from the @api_base@; you shouldn't need to set this normally.
+* *update_lastmod:* _(Optional)_ If set to "1" (the default), atb_twitter will update Textpattern's last update time with the time of the most recent Tweet (analogous to setting "New comment means site updated?" to yes in your site preferences).
+
+h4. Tags for twitter forms:
+
+Only a few of these tags take any attributes:
+
+* *atb_tw_text* returns the tweet's text. If the @linkify@ attribute is left at 1 (its default), URLs, hashtags, and @replies will be converted to links and given CSS classes: all links are given the class "atb_status_link"; converted URLs additionally take the class "atb_status_weblink"; @replies get "atb_status_atreply" as well as a customized class based on the username mentioned, like "atb_status_atreply_to_[username]"; hashtags get "atb_status_hashtag" and another class based on the hashtag itself, like "atb_hashtag_[tag]". This tag takes the following attributes, all optional:
+** *linkify:* With @linkify@ set to 1 (the default), URLs, at-replies and hashtags are converted to links; with @linkify@ set to 0, the text will be left alone. The remaining attributes will be ignored if @linkify@ is set to 0.
+** *link_wrap:* The name of a tag to wrap around URLS that have been converted to links.
+** *link_wrapclass:* The class of the URL wraptags.
+** *atreply_wrap:* The name of a tag to wrap around @reply links.
+** *atreply_wrapclass:* The class for @reply wraptags.
+** *hashtag_wrap:* The name of a tag to wrap around hashtag links.
+** *hashtag_wrapclass:* The class for hashtag wraptags.
+* *atb_tw_created_at* returns the date of the tweet. It takes two attributes: @format@, which may be any value accepted by "txp:posted":http://textpattern.net/wiki/index.php?title=posted and defaults to the "Archive date format" as set in Textpattern's preferences; and @tz@, which determines if the time used is the local time (as determined by Textpattern's timezone--this is the default setting), GMT (set @tz@ to "1"), or the time zone Twitter reports for the user (set @tz@ to "2").
+* *atb_tw_user_created_at* returns the date the Twitter account being read was created. It takes the same attributes as @atb_tw_created_at@.
+
+There are three conditional tags:
+
+* *atb_tw_if_is_reply*
+* *atb_tw_if_first_tweet*
+* *atb_tw_if_last_tweet*
+
+The remaining tags accept no attributes and simply return text. These four return information about the current tweet/status:
+
+* *atb_tw_id:* Returns the current status's id.
+* *atb_tw_in_reply_to_status_id*
+* *atb_tw_in_reply_to_user_id*
+* *atb_tw_in_reply_to_screen_name*
+* *atb_tw_source:* names and links to the program used to post the current status.
+
+These tags return information about the user:
+
+* *atb_tw_user_description:* The user's profile
+        description
+* *atb_tw_user_favourites_count*
+* *atb_tw_user_followers_count*
+* *atb_tw_user_friends_count*
+* *atb_tw_user_id:* a numeric user ID.
+* *atb_tw_user_lang*
+* *atb_tw_user_location*
+* *atb_tw_user_name:* The user's name as entered in his/her profile.
+* *atb_tw_user_profile_image_url*
+* *atb_tw_user_screen_name*
+* *atb_tw_user_statuses_count*
+* *atb_tw_user_url:* The website URL provided in the user's profile.
+
+h3(#atb_tw_example). Example
+
+This is just a basic form that displays my most recent 20 statuses:
+
+bc.. <txp:atb_twitter count="20" user="daydreamlab">
+
+<txp:atb_tw_if_first_tweet>
+<h2><a href="http://twitter.com/<txp:atb_tw_user_screen_name />">@daydreamlab on Twitter</a></h2>
+<ul>
+</txp:atb_tw_if_first_tweet>
+
+<li>
+<span class="tweetdate"><txp:atb_tw_created_at />:</span> 
+<br /><txp:atb_tw_text />
+
+<txp:atb_tw_if_is_reply>
+<br />
+<a class="inreply" href="http://twitter.com/<txp:atb_tw_in_reply_to_screen_name />/status/<txp:atb_tw_in_reply_to_status_id />">
+in reply to <txp:atb_tw_in_reply_to_screen_name />
+</a>
+</txp:atb_tw_if_is_reply>
+</li>
+
+<txp:atb_tw_if_last_tweet>
+</ul>
+</txp:atb_tw_if_last_tweet>
+
+</txp:atb_twitter>
