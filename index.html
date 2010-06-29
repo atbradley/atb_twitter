@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>atbradley/atb_twitter @ GitHub</title>
+	
+	<style type="text/css">
+		body {
+  		margin-top: 1.0em;
+  		background-color: #b7edb6;
+		  font-family: "Helvetica,Arial,FreeSans";
+  		color: #000000;
+    }
+    #container {
+      margin: 0 auto;
+      width: 700px;
+    }
+		h1 { font-size: 3.8em; color: #481249; margin-bottom: 3px; }
+		h1 .small { font-size: 0.4em; }
+		h1 a { text-decoration: none }
+		h2 { font-size: 1.5em; color: #481249; }
+    h3 { text-align: center; color: #481249; }
+    a { color: #481249; }
+    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+    .download { float: right; }
+		pre { background: #000; color: #fff; padding: 15px;}
+    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+    .footer { text-align:center; padding-top:30px; font-style: italic; }
+	</style>
+	
+</head>
+
+<body>
+  <a href="http://github.com/atbradley/atb_twitter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+
+  <div id="container">
+
+    <div class="download">
+      <a href="http://github.com/atbradley/atb_twitter/zipball/master">
+        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
+      <a href="http://github.com/atbradley/atb_twitter/tarball/master">
+        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+    </div>
+
+    <h1><a href="http://github.com/atbradley/atb_twitter">atb_twitter</a>
+      <span class="small">by <a href="http://github.com/atbradley">atbradley</a></span></h1>
+
+    <div class="description">
+      Textpattern plugin to display Twitter or StatusNet feeds on your website
+    </div>
+
+    <p><pre><code>&lt;txp:atb_twitter count=&quot;20&quot; user=&quot;daydreamlab&quot;&gt;
+</code>
+<code>&lt;txp:atb_tw_if_first_tweet&gt;
+&lt;h2&gt;&lt;a href=&quot;http://twitter.com/daydreamlab&quot;&gt;&lt;txp:atb_tw_user_name /&gt; on Twitter&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;/txp:atb_tw_if_first_tweet&gt;
+</code>
+<code>&lt;li&gt;
+&lt;span class=&quot;tweetdate&quot;&gt;&lt;txp:atb_tw_created_at /&gt;:&lt;/span&gt; 
+&lt;br /&gt;&lt;txp:atb_tw_text /&gt;
+</code>
+<code>&lt;txp:atb_tw_if_is_reply&gt;
+&lt;br /&gt;
+&lt;a class=&quot;inreply&quot; href=&quot;http://twitter.com/&lt;txp:atb_tw_in_reply_to_user_id /&gt;/status/&lt;txp:atb_tw_in_reply_to_status_id /&gt;&quot;&gt;
+in reply to &lt;txp:atb_tw_in_reply_to_user_id /&gt;
+&lt;/a&gt;
+&lt;/txp:atb_tw_if_is_reply&gt;
+</code>
+<code>&lt;/li&gt;
+</code>
+<code>&lt;txp:atb_tw_if_last_tweet&gt;
+&lt;/ul&gt;
+&lt;/txp:atb_tw_if_last_tweet&gt;
+</code>
+<code>&lt;/txp:atb_twitter&gt;
+</code></pre></p><h2>Install</h2>
+<p>Simply cut-and-paste into the Textpattern plugin page, like any other Textpattern plugin.</p>
+<h2>Authors</h2>
+<p>Adam Bradley (hisself@adambradley.net)<br/><br/>      </p>
+<h2>Contact</h2>
+<p>Adam Bradley (hisself@adambradley.net)<br/>      </p>
+
+
+    <h2>Download</h2>
+    <p>
+      You can download this project in either
+      <a href="http://github.com/atbradley/atb_twitter/zipball/master">zip</a> or
+      <a href="http://github.com/atbradley/atb_twitter/tarball/master">tar</a> formats.
+    </p>
+    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
+      by running:
+      <pre>$ git clone git://github.com/atbradley/atb_twitter</pre>
+    </p>
+
+    <div class="footer">
+      get the source code on GitHub : <a href="http://github.com/atbradley/atb_twitter">atbradley/atb_twitter</a>
+    </div>
+
+  </div>
+
+  
+</body>
+</html>
