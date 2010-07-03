@@ -1,0 +1,103 @@
+html { background-color: #102F0F; }
+body 
+{ 
+	background-color: #102F0F;
+	font-family: Baskerville, Times New Roman, times, serif;
+	margin: 0 !important; 
+}
+
+#doc3 { margin: 0; min-width: 974px; padding: 0; }
+h1, h2, h3 
+{ 
+	color: inherit; 
+	font-family: "Ford's Folly", Baskerville, Times New Roman, times, serif;
+	font-weight: normal; 
+}
+
+h1 { font-size: 5em; }
+h2
+{
+	border-bottom: 3px solid #102f0f;
+	font-size: 2em;
+	font-style: italic;
+	font-weight: normal; 
+}
+h3 { font-size: 1.8em; }
+
+pre { overflow: auto; }
+
+a:link, a:visited
+{
+	border-bottom: 1px dotted;
+	text-decoration: none;
+}
+
+a:link { color: #102F0F; }
+a:visited { color: #400080; }
+
+a:hover, a:active
+{
+	border-bottom: 1px solid;
+	color: #008000;
+}
+
+#header
+{
+	color: white;
+	height:  8.5em;
+	margin: 0;
+	padding: 0 1.5em;
+	text-align: left;
+}
+
+#header a
+{
+	border: 0;
+	color: white;
+}
+
+#header h1 
+{ 
+	margin: 12px 0 10px; 
+}
+
+#header h1 a
+{
+	color: #758571;
+	display: block;
+	height: 70px;
+	text-decoration: none;
+	width: 470px;
+}
+
+#header h1 a span { color: white; }
+
+
+#bd {
+	background-color: white; 
+	padding: 0 1.5em 1em;
+}
+
+
+#footer
+{
+	background-color: #102F0F;
+	color: white;
+	height:  8em;
+	margin: 0;
+	padding: 0 1.5em;
+}
+
+#footer ul { float: right; }
+#footer ul li 
+{ 
+	border-left: 2px solid;
+	float: left; 
+	list-style-type: none; 
+	margin-left: .5em;
+	padding-left: .5em;
+}
+#footer ul li:first-child { border-left: none; }
+
+.spinner { display: block; margin: 0 auto; }
+.clear { clear: both; }
