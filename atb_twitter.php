@@ -238,6 +238,7 @@ function atb_twitter($atts, $thing) {
         $atb_thistweet->addAttribute('index', $twindex + 1);
         $atb_thistweet->addAttribute('total', count($tweets));
         $atb_thistweet->addAttribute('site_base', $site_base);
+        $atb_thistweet->addAttribute('source', 'twitter.com' === $site_base ? 'twitter' : 'statusnet');
         
         $outp .= parse($template);
     }
